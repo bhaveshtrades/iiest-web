@@ -1,5 +1,5 @@
 export let config = {
-   API_URL :'https://iiest-server.onrender.com'
+   API_URL :'https://iiest-server.onrender.com/iiest'
    // API_URL: 'https://iiest-server.onrender.com/'
 }
 
