@@ -1,0 +1,167 @@
+<div class="modal-header bg-secondary">
+  <h6 class="modal-title text-white" id="modal-basic-title">Recipients</h6>
+  <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<form *ngIf="recipientData?.length==0" [formGroup]="recipientform" autocomplete="off" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <!--Foscos FORM Start-->
+  <div class="modal-body" *ngIf="this.fboType == 'Foscos Training'">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="operatorName" class="form-label">Operator Name<sup>*</sup></label>
+        <input type="text" id="operatorName" class="form-control form-control-sm" placeholder="Operator Name"
+          formControlName="operatorName"
+          [ngClass]="{ 'is-invalid': submitted && recipient['operatorName'].errors }" />
+        <div *ngIf="submitted && recipient['operatorName'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['operatorName'].errors['required']">Operator Name is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="address" class="form-label">Address<sup>*</sup></label>
+        <input type="text" placeholder="Address" formControlName="address" class="form-control form-control-sm"
+          id="address" [ngClass]="{ 'is-invalid': submitted && recipient['address'].errors }" />
+        <div *ngIf="submitted && recipient['address'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['address'].errors['required']">Address is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="eBill" class="form-label">Electricity Bill<sup>*</sup></label>
+        <input type="file" (change)="onImageChangeFromFile($event)" placeholder="Electricity Bill"
+          formControlName="eBill" class="form-control form-control-sm" id="eBill"
+          [ngClass]="{ 'is-invalid': submitted && recipient['eBill'].errors }" />
+        <div *ngIf="submitted && recipient['eBill'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['eBill'].errors['required']">Electricity Bill is required.(jpeg or png)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Fostac FORM Start-->
+  <div class="modal-body" *ngIf="this.fboType == 'Fostac Training'">
+    <div class="row">
+      <div class="col-md-4">
+        <label for="name" class="form-label">Recipient Name<sup>*</sup></label>
+        <input type="text" id="name" class="form-control form-control-sm" placeholder="Recipient Name"
+          formControlName="name" [ngClass]="{ 'is-invalid': submitted && recipient['name'].errors }" />
+        <div *ngIf="submitted && recipient['name'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['name'].errors['required']">Recipient Name is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="phoneNo" class="form-label">Mobile No.<sup>*</sup></label>
+        <input type="text" placeholder="Mobile No." formControlName="phoneNo" class="form-control form-control-sm"
+          id="phoneNo" [ngClass]="{ 'is-invalid': submitted && recipient['phoneNo'].errors }" />
+        <div *ngIf="submitted && recipient['phoneNo'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['phoneNo'].errors['required']">Mobile No. is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="aadharNo" class="form-label">Aadhar No.<sup>*</sup></label>
+        <input type="text" placeholder="Aadhar No." formControlName="aadharNo" class="form-control form-control-sm"
+          id="aadharNo" [ngClass]="{ 'is-invalid': submitted && recipient['aadharNo'].errors }" />
+        <div *ngIf="submitted && recipient['aadharNo'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['aadharNo'].errors['required']">Aadhar No. is required</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer text-left">
+    <button type="submit" class="btn btn-sm btn-outline-dark">Add Recipient</button>
+  </div>
+</form>
+
+
+<div class="row g-3 mb-4 mx-2 align-items-center justify-content-between">
+  <div class="col-auto">
+    <h1 class="app-page-title mb-0">FBO Recipient List</h1>
+  </div>
+  <div class="col-auto">
+    <div class="page-utilities">
+      <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+        <div class="col-auto">
+          <!-- <form class="form">
+              <div class="input-group">
+                <fa-icon [icon]="faMagnifyingGlass" class="fa-sm" style="position: absolute; padding: 9px 10px;"
+                  [ngClass]="isSearch === false ? 'd-block':'d-none'"></fa-icon>
+              </div>
+              <input type="text" id="search-orders" [(ngModel)]="searchQuery" name="searchorders"
+                class="form-control form-control-sm search-orders" (input)="onSearchChange()">
+            </form> -->
+        </div>
+        <div class="col-auto">
+          <!-- <select class="form-select form-select-sm w-auto" [(ngModel)]="selectedFilter">
+              <option value="byOwner">Search by owner</option>
+              <option value="byName">Search by name</option>
+              <option value="byContact">Search by contact</option>
+              <option value="byDistrict">Search by district</option>
+  
+            </select> -->
+        </div>
+        <div class="col-auto">
+          <!--  <fa-icon (click)="exportToCsv()" class="fa-2xl" style="margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
+            <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon> -->
+        </div>
+      </div><!--//row-->
+    </div><!--//table-utilities-->
+  </div><!--//col-auto-->
+</div><!--//row-->
+
+<!--   
+    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+      <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
+      <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
+      <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
+      <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+  </nav> -->
+
+
+<div class="tab-content mx-3" id="orders-table-tab-content">
+  <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <div class="table-responsive">
+          <table class="table app-table-hover table-striped mb-0 text-left" id="data-to-export">
+            <thead>
+              <tr *ngIf="this.fboType == 'Fostac Training'">
+                <th class="cell">S.No</th>
+                <th class="cell">Recipient Name</th>
+                <th class="cell">Phone</th>
+                <th class="cell">Aadhar No.</th>
+              </tr>
+              <tr *ngIf="this.fboType == 'Foscos Training'">
+                <th class="cell">S.No</th>
+                <th class="cell">Operator Name</th>
+                <th class="cell">Address</th>
+                <th class="cell">Electricity Bill</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="recipientData?.length>0">
+
+              <!-- <tr *ngFor="let recipient of recipientData | paginate: { itemsPerPage: 10, currentPage: pageNumber }"> -->
+              <tr  *ngFor="let recipients of recipientData let sr = index">
+                <td *ngIf="isfostac" class="cell"><span class="truncate">{{sr+1}}</span></td>
+                <td *ngIf="isfostac" class="cell"><span class="truncate">{{recipients.name}}</span></td>
+                <td *ngIf="isfostac" class="cell"><span class="truncate">{{recipients.phoneNo}}</span></td>
+                <td *ngIf="isfostac" class="cell"><span class="truncate">{{recipients.aadharNo}}</span></td>
+              
+                <td *ngIf="!isfostac" class="cell"><span class="truncate">{{sr+1}}</span></td>
+                <td *ngIf="!isfostac" class="cell"><span class="truncate">{{recipients.operatorName}}</span></td>
+                <td *ngIf="!isfostac" class="cell"><span class="truncate">{{recipients.address}}</span></td>
+                <td *ngIf="!isfostac" class="cell"><span class="truncate">{{recipients.eBill}}</span></td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="recipientData?.length == 0">
+              <tr>
+                <td colspan="15" class="text-center fw-bold">----------------- No Data Found ----------------</td>
+              </tr>
+            </tbody>
+          </table>
+        </div><!--//table-responsive-->
+
+      </div><!--//app-card-body-->
+    </div><!--//app-card-->
+
+    <div class="d-flex justify-content-end">
+      <pagination-controls previousLabel="Prev" nextLabel="Next"></pagination-controls>
+    </div>

@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '../node_modules/bootstrap-scss/bootstrap.scss';
+@import './assets/css/portal.css';
+@import './node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss';
+@import 'ngx-toastr/toastr';
+::-webkit-input-placeholder {
+    font-size: 13px;
+ }
+ .form-label{font-size: 13px;}
+ .form-select-sm > option{ font-size: 13px!important;}
+ .app-content{margin-top:0;}
+ 
