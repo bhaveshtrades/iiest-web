@@ -141,7 +141,7 @@ export class FboComponent implements OnInit {
       if(this.addFbo.payment_mode === 'Pay Page'){
         this._registerService.fboPayment(this.addFbo.total_amount).subscribe({
           next: (res)=>{
-            window.location.url = res.redirectURL;
+            window.location.href = res.redirectURL;
           },
           error: (err)=>{
             console.log(err);
