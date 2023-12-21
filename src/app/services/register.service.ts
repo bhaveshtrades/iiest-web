@@ -45,7 +45,7 @@ export class RegisterService {
   }
 
   public addFboRecipent(objId: string, addFboRecipent: fboRecipient): Observable<any> {
-    const url = `${this.url}fbo/recipientDetails/${objId}`
+    const url = `${this.url}/fbo/recipientDetails/${objId}`
     return this.http.post<any>(url, addFboRecipent).pipe(
       catchError(
         this.handleError
